@@ -69,6 +69,7 @@ idea/**/tasks.xml
 idea/**/usage.statistics.xml
 idea/**/dictionaries
 idea/**/shelf
+idea/**/*.xml
 ### VirtualEnv template (for virtual environments)
 [Bb]in/
 [Ii]nclude/
