@@ -1,9 +1,5 @@
 # Leo Carten - WIT Math for ML Final Project
-12/06/2025
-
-This contains assignment details, my thoughts, and my notes for the project.
-
-This is in reference to `FINAL-PROJECT-Math5700-project-Fall2025.pdf`.
+This contains assignment details, my thoughts, and my notes for the project. This is in reference to `FINAL-PROJECT-Math5700-project-Fall2025.pdf`.
 
 # Project Overview
 I decided to create a model that can predict housing prices based on `area,bedrooms,bathrooms,stories,mainroad,guestroom,basement,hotwaterheating,airconditioning,parking,prefarea,furnishingstatus` with information below:
