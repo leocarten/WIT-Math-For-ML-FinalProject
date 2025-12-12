@@ -43,8 +43,8 @@ class Main:
 
         print("### (b) Compute Training Error")
         MSE, median, mean = data.LinearModelMSE(True)
-        print(f"The **MSE** was: {MSE:,}\n")
-        print(f"**RMSE** is a good way to see how \"off\" the model was per value, this is: ${round(math.sqrt(MSE), 2):,}\n")
+        print(f"The **MSE** was: `{MSE:,}`\n")
+        print(f"**RMSE** is a good way to see how \"off\" the model was per value, this is: `${round(math.sqrt(MSE), 2):,}`\n")
         print(
             f"**Linear model assessment**: Since this model does not include polynomial model fitting, normalizing features, or removing extreme outliers, "
             f"I think this model performed relatively well given `mean={mean:,.2f}` and `median={median:,.2f}`."
@@ -52,8 +52,8 @@ class Main:
 
         print("### (c) Compute Test Error")
         testingMSE, testing_median, testing_mean = data.LinearModelMSE(False)
-        print(f"The **MSE** was: {testingMSE:,}\n")
-        print(f"**RMSE** is a good way to see how \"off\" the model was per value, this is: ${round(math.sqrt(testingMSE), 2):,}\n")
+        print(f"The **MSE** was: `{testingMSE:,}`\n")
+        print(f"**RMSE** is a good way to see how \"off\" the model was per value, this is: `${round(math.sqrt(testingMSE), 2):,}`\n")
         print(
             f"**Linear model assessment**: Since this model does not include polynomial model fitting, normalizing features, or removing extreme outliers, "
             f"I think this model performed relatively well given `mean={testing_mean:,.2f}` and `median={testing_median:,.2f}`."
