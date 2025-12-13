@@ -78,10 +78,11 @@ class Main:
         )
 
         print("### (d) Additional info about how I made the Polynomial Model more accurate")
-        print("Below are the things I did to improve this model other than adding polynomial terms:")
-        print("- I removed outliers by calculating zscores of all features")
-        print("- I removed the `area` column after calculating the correlations of each feature")
-        print("- I fixed how I quantified tri-nary features, e.g. the `furnished` feature.")
+        print("Below are the things I did (or tried) to improve this model other than adding polynomial terms:")
+        print("- I tried adding polynommial terms of different degrees (e.g. `^2` or `^3`) to multiple features to see how the curve of the graph was changed.")
+        print("- I removed outliers by calculating z-scores of all features and removed things that were `+-2.5` standard deviations away from the mean.")
+        print("- I used the `FigureOutColumnsToDropBasedOnCorrlation()` function and tried removing some features by calculating the correlations of each feature and how they relate to other features.")
+        print("- I fixed how I pre-processed my data by changing how i quantified tri-nary features, e.g. the `furnished` feature. Previously it was `-1,0,1`, but I changed it to `0,1,2`.")
 
 
 def main():

@@ -152,7 +152,7 @@ class Data:
 
     def PolynomialModelPrediction(
             self,
-            # iarea,
+            iarea,
             ibedrooms,
             ibathrooms,
             istories,
@@ -166,13 +166,11 @@ class Data:
             ifurnishingstatus,
     ):
         (
-            # area,
-            # area_squared,
-            # area_cubed,
+            area,
+            area_squared,
             bedrooms,
-            # bedrooms_squared,
+            bedrooms_squared,
             bathrooms,
-            # bathrooms_squared,
             stories,
             stories_squared,
             mainroad,
@@ -183,18 +181,16 @@ class Data:
             parking,
             prefarea,
             furnishingstatus,
-            furnishingstatus_squared,
             bias
         ) = self.LeastSquaresPolynomial()
 
         y_hat = (
-                # iarea * area
-                # + (iarea**2) * area_squared
-                # + (iarea ** 3) * area_cubed
+                # notice no area input, because we removed it
+                + iarea * area
+                + (iarea **1.5) * area_squared
                 + ibedrooms * bedrooms
-                # + (ibedrooms**2) * bedrooms_squared
+                + (ibedrooms**2) * bedrooms_squared
                 + ibathrooms * bathrooms
-                # + (ibathrooms**2) * bathrooms_squared
                 + istories * stories
                 + (istories**2) * stories_squared
                 + imainroad * mainroad
@@ -205,7 +201,6 @@ class Data:
                 + iparking * parking
                 + iprefarea * prefarea
                 + ifurnishingstatus * furnishingstatus
-                + (ifurnishingstatus**3) * furnishingstatus_squared
                 + bias
         )
         return y_hat
@@ -247,7 +242,7 @@ class Data:
 
             # get model prediction
             y_hat = self.PolynomialModelPrediction(
-                # master_row_with_price.area,
+                master_row_with_price.area,
                 master_row_with_price.bedrooms,
                 master_row_with_price.bathrooms,
                 master_row_with_price.stories,
@@ -343,7 +338,7 @@ class Data:
         print(corr_matrix)
         threshold = 0.2
         dict = {}
-        # Find pairs with correlation higher than threshold
+        # find pairs with correlation higher than threshold
         high_corr_pairs = np.where(np.abs(corr_matrix) > threshold)
         for i, j in zip(*high_corr_pairs):
             if i < j:  # avoid duplicates and self-correlation
@@ -391,29 +386,20 @@ class Data:
         # remember, IRL there is no "perfect" solution - so LSE is able to find the line of best fit with a bias
         # formula = At * Ax = At * b
         A = self.trainingData.copy()
-        # pd.set_option('display.max_columns', None)
-        # pd.set_option('display.width', 200)
-        #
         A['bias'] = 1       # add a column called "bias" and default it to all 1s
 
-        # add squared columns for continuous variables (e.g. area) since other variables are nearly binary
-        # find the index of the 'area' column
-        # idx = A.columns.get_loc('area')  # returns the integer position of 'area'
-        # # insert the new squared column right after it
-        # A.insert(loc=idx + 1, column='area_squared', value=(A['area'] ** 2))
-        A = A.drop('area', axis=1)
+        # remove the area column since we saw it is related to other features
+        # A = A.drop('area', axis=1)
 
-        idx = A.columns.get_loc('furnishingstatus')  # returns the integer position of 'area'
-        # insert the new squared column right after it
-        A.insert(loc=idx + 1, column='furnishingstatus_squared', value=(A['furnishingstatus'] ** 3))
+        # add polynomial term for 'area','stories', and 'bedrooms'
+        idx = A.columns.get_loc('area')  # returns the integer position of 'area'
+        A.insert(loc=idx + 1, column='area_squared', value=(A['area'] ** 1.5))
 
-        # idx = A.columns.get_loc('mainroad')  # returns the integer position of 'area'
-        # # insert the new squared column right after it
-        # A.insert(loc=idx + 1, column='mainroad_squared', value=(A['mainroad'] ** 1))
-
-        idx = A.columns.get_loc('stories')  # returns the integer position of 'area'
-        # insert the new squared column right after it
+        idx = A.columns.get_loc('stories')  # returns the integer position of 'stoires'
         A.insert(loc=idx + 1, column='stories_squared', value=(A['stories'] ** 2))
+
+        idx = A.columns.get_loc('bedrooms')  # returns the integer position of 'bedrooms'
+        A.insert(loc=idx + 1, column='bedrooms_squared', value=(A['bedrooms'] ** 2))
 
         At = A.transpose()
 
