@@ -46,21 +46,22 @@ Please see images below to assess model performance, notice the linear model doe
 
 # Part 3) Fit a Polynomial Model Using Least Squares
 ### (b) Compute Training Error
-The **MSE** was: `706,934,694,349.12`
+The **MSE** was: `588,853,337,443.24`
 
-**RMSE** is a good way to see how "off" the model was per value, this is: `$840,794.09`
+**RMSE** is a good way to see how "off" the model was per value, this is: `$767,367.8`
 
 I think this model performed relatively well given `mean=4,208,318.70` and `median=4,060,000.00`.
 ### (c) Compute Test Error
-The **MSE** was: `604,911,799,290.8`
+The **MSE** was: `523,354,451,032.18`
 
-**RMSE** is a good way to see how "off" the model was per value, this is: `$777,760.76`
+**RMSE** is a good way to see how "off" the model was per value, this is: `$723,432.41`
 
 I think this model performed relatively well given `mean=4,315,221.59` and `median=4,200,000.00`.
-### (d) Additional info about the Polynomial Model
-Below are the things I did to improve this model other than adding polynomial terms:
-- I removed outliers by calculating zscores of all features
-- I removed the `area` column after calculating the correlations of each feature
-- I fixed how I quantified tri-nary features, e.g. the `furnished` feature.
+### (d) Additional info about how I made the Polynomial Model more accurate
+Below are the things I did (or tried) to improve this model other than adding polynomial terms:
+- I tried adding polynommial terms of different degrees (e.g. `^2` or `^3`) to multiple features to see how the curve of the graph was changed.
+- I removed outliers by calculating z-scores of all features and removed things that were `+-2.5` standard deviations away from the mean.
+- I used the `FigureOutColumnsToDropBasedOnCorrlation()` function and tried removing some features by calculating the correlations of each feature and how they relate to other features.
+- I fixed how I pre-processed my data by changing how i quantified tri-nary features, e.g. the `furnished` feature. Previously it was `-1,0,1`, but I changed it to `0,1,2`.
 ![poly-training-data.png](poly-training-data.png)
 - ![poly-testing-data.png](poly-testing-data.png)
